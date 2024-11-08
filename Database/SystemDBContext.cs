@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MiniLibrary.Models;
-using System.ComponentModel.DataAnnotations;
 
 namespace MiniLibrary.Database
 {
@@ -10,7 +9,7 @@ namespace MiniLibrary.Database
         public DbSet<ItemType> ItemTypes { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Company> Companies { get; set; }
-        public DbSet<People> Peoples { get; set; }
+        public DbSet<Person> Peoples { get; set; }
         public DbSet<Bookshelf> Bookshelves { get; set; }
 
         public SystemDBContext(DbContextOptions<SystemDBContext> options) : base(options)
@@ -24,7 +23,7 @@ namespace MiniLibrary.Database
             modelBuilder.Entity<ItemType>().ToTable("ItemTypes");
             modelBuilder.Entity<Item>().ToTable("Items");
             modelBuilder.Entity<Company>().ToTable("Companies");
-            modelBuilder.Entity<People>().ToTable("Peoples");
+            modelBuilder.Entity<Person>().ToTable("Persons");
             modelBuilder.Entity<Bookshelf>().ToTable("Bookshelves");
         }
 
@@ -70,32 +69,6 @@ namespace MiniLibrary.Database
                 Console.WriteLine($"An error occurred while updating the database schema: {ex.Message}");
             }
         }
-
-        public override int SaveChanges()
-        {
-            ValidatePeopleEntities();
-            return base.SaveChanges();
-        }
-
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            ValidatePeopleEntities();
-            return base.SaveChangesAsync(cancellationToken);
-        }
-
-        private void ValidatePeopleEntities()
-        {
-            var peoples = ChangeTracker.Entries<People>().Where(e => e.State == EntityState.Added || e.State == EntityState.Modified).Select(e => e.Entity);
-
-            foreach (var person in peoples)
-            {
-                if (string.IsNullOrEmpty(person.Name) && string.IsNullOrEmpty(person.Surname) && string.IsNullOrEmpty(person.Nickname))
-                {
-                    throw new ValidationException("Name, Surname and Nickname cannot be empty at the same time.");
-                }
-            }
-        }
-
 
     }
 }

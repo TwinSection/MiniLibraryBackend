@@ -2,8 +2,7 @@
 
 namespace MiniLibrary.Models
 {
-    [ModelValidator1("Name", "Surname", "Nickname")]
-    public class People
+    public class Person
     {
         [Key] public int ID { get; set; }
         public string? Name { get; set; }
