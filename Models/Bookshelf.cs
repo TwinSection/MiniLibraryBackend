@@ -1,9 +1,11 @@
-﻿namespace MiniLibrary.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MiniLibrary.Models
 {
     public class Bookshelf
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
+        [Key] public int ID { get; set; }
+        [Required] public string Name { get; set; }
         public List<Item> Items { get; set; }
     }
 }

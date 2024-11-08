@@ -2,11 +2,11 @@
 
 namespace MiniLibrary.Models
 {
+    [ModelValidator1("Name", "Surname", "Nickname")]
     public class People
     {
-        [Key]
-        public int ID { get; set; }
-        public string Name { get; set; }
+        [Key] public int ID { get; set; }
+        public string? Name { get; set; }
         public string? Surname { get; set; }
         public string? Nickname { get; set; }
         public ICollection<Item> Items { get; set; } = new HashSet<Item>();

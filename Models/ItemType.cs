@@ -1,17 +1,19 @@
-﻿namespace MiniLibrary.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MiniLibrary.Models
 {
     public class ItemType
     {
-        public int ID { get; set; }
-        public string TypeName { get; set; }
+        [Key] public int ID { get; set; }
+        [Required] public string TypeName { get; set; }
 
         public static List<ItemType> DefaultTypes()
         {
             return new List<ItemType>
             {
-                new ItemType(){ ID=0, TypeName="Book"},
-                new ItemType(){ ID=1, TypeName="Manga"},
-                new ItemType(){ ID=2, TypeName="Comic"},
+                new ItemType(){ TypeName="Book"},
+                new ItemType(){ TypeName="Manga"},
+                new ItemType(){ TypeName="Comic"},
             };
         }
     }
